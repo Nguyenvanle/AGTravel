@@ -1,49 +1,62 @@
 import Colors from "@/constants/Colors";
 import { text } from "@/constants/Text";
-import {
-  StyleSheet,
-  View,
-  Pressable,
-  Text,
-  TouchableOpacity,
-} from "react-native";
+import { Button } from "@rneui/themed";
+import { StyleSheet, View, Text, Alert } from "react-native";
 
-export default function Button({ label }: any) {
+export function ButtonCustom({ label, alert, buttonColor, textColor }: any) {
+  const button = StyleSheet.create({
+    button: {
+      flex: 0,
+      backgroundColor: buttonColor,
+      width: 220,
+      paddingHorizontal: 10,
+      paddingVertical: 12,
+      borderRadius: 20,
+    },
+    buttonIcon: {
+      paddingRight: 8,
+    },
+    buttonLabel: {
+      ...text.label,
+      flex: 0,
+      justifyContent: "center",
+      textAlign: "center",
+      alignSelf: "stretch",
+      borderRadius: 20,
+      color: textColor,
+    },
+  });
+
   return (
-    <View style={button.buttonContainer}>
-      <TouchableOpacity
-        style={button.button}
-        onPress={() => alert("You pressed a button.")}
-      >
-        <Text style={button.buttonLabel}>{label}</Text>
-      </TouchableOpacity>
-    </View>
+    <Button
+      buttonStyle={button.button}
+      onPress={alert}
+      title={label}
+      loading={false}
+      loadingProps={{ size: "small", color: "white" }}
+      titleStyle={button.buttonLabel}
+    ></Button>
   );
 }
 
-const button = StyleSheet.create({
-  buttonContainer: {
-    flex: 0,
-    padding: 10,
-    alignItems: "flex-start",
-    gap: 20,
-  },
-  button: {
-    flex: 0,
-    backgroundColor: Colors.dark.brown,
-    width: 220,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  buttonIcon: {
-    paddingRight: 8,
-  },
-  buttonLabel: {
-    ...text.label,
-    flex: 0,
-    justifyContent: "center",
-    textAlign: "center",
-    alignSelf: "stretch",
-  },
-});
+export function BrownButton({ label, alert }: any) {
+  return (
+    <ButtonCustom
+      label={label}
+      alert={alert}
+      buttonColor={Colors.dark.brown}
+      textColor={Colors.light.milk}
+    />
+  );
+}
+
+export function BeigeButton({ label, alert }: any) {
+  return (
+    <ButtonCustom
+      label={label}
+      alert={alert}
+      buttonColor={Colors.light.beige}
+      textColor={Colors.light.milk}
+    />
+  );
+}

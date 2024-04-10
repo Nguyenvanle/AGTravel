@@ -9,6 +9,6 @@ export default {
     milk: "#F8FAE5",
     beige: "#B19470",
   },
-  primary: "#00ADB5",
+  primary: "#97E7E1",
   background: "#43766C",
 };

@@ -1,12 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { container } from "@/constants/Container";
 
 export default function index() {
-  return (
-    <View>
-      <Text>index</Text>
-    </View>
-  );
+  return <SafeAreaProvider style={container.root}></SafeAreaProvider>;
 }
 
 const styles = StyleSheet.create({});

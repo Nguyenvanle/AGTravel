@@ -5,7 +5,8 @@ export const container = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 80,
+    paddingBottom: 80,
+    paddingTop: 20,
     gap: 10,
     alignSelf: "stretch",
     alignItems: "center",
@@ -13,7 +14,14 @@ export const container = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   scrollView: {
-    flex: 1,
     backgroundColor: Colors.background,
+    flex: 0,
+  },
+  button: {
+    flex: 0,
+    padding: 10,
+    alignItems: "flex-start",
+    gap: 20,
+    borderRadius: 20,
   },
 });

@@ -1,10 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import { container } from "@/constants/Container";
-import Logo from "@/components/Logo";
-import Colors from "@/constants/Colors";
 import { Redirect } from "expo-router";
 
-export default function Page() {
+export default function RedirectPage() {
+  console.log("/ redirect to (launch)");
   return <Redirect href="/(launch)"></Redirect>;
 }

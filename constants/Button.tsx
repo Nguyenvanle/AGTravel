@@ -1,6 +1,6 @@
 import Colors from "@/constants/Colors";
 import { StyleSheet } from "react-native";
-import { text } from "./text";
+import { text } from "./Text";
 
 export const button = StyleSheet.create({
   primary: {
