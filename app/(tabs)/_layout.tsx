@@ -105,12 +105,12 @@ const tab = StyleSheet.create({
     paddingHorizontal: 30,
     paddingBottom: 10,
     backgroundColor: Colors.background,
-    borderTopWidth: 0, // Tắt đường viền dưới cùng
+    borderTopWidth: 0, // Tắt đường viền trên cùng
     shadowColor: "transparent", // Tắt bóng (shadow) trên iOS
     elevation: 0, // Tắt bóng (shadow) trên Android
   },
   headerStyle: {
-    borderBottomWidth: 0, // Tắt đường viền trên cùng
+    borderBottomWidth: 0, // Tắt đường viền dưới cùng
     shadowColor: "transparent", // Tắt bóng (shadow) trên iOS
     elevation: 0, // Tắt bóng (shadow) trên Android
     backgroundColor: Colors.background,
