@@ -17,7 +17,7 @@ export default function Launch() {
         text: "Ok",
         onPress: () => {
           console.log(`${currentSegments} --> (login)`);
-          router.push(`/(login)/LoginScreen`);
+          router.push(`/(onboarding)`);
         },
       },
     ]);
