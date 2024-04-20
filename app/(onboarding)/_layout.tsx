@@ -1,7 +1,6 @@
-import React from "react";
 import { Stack } from "expo-router";
 
-export default function Pages() {
+export default function OnBoardingLayout() {
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />

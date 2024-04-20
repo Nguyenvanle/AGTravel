@@ -3,19 +3,21 @@ import React from "react";
 import Colors from "@/constants/Colors";
 import Logo from "@/components/Logo";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { router } from "expo-router";
+import { router, useSegments } from "expo-router";
 import { container } from "@/constants/Container";
 import { BeigeButton, BrownButton, ButtonCustom } from "@/components/Button";
 import { text } from "@/constants/Text";
 
 export default function Launch() {
+  // Hàm xác định trang hiện tại từ đó chuyển hướng tới trang tiếp theo dựa trên trang hiện tại
+  const [currentSegments] = useSegments();
   const alertHandler = () =>
     Alert.alert("Thông Báo", "Bạn đã đăng nhập thành công 🥰", [
       {
         text: "Ok",
         onPress: () => {
-          console.log("(launch) redirect to (home)");
-          router.push("/(tabs)/(home)");
+          console.log(`${currentSegments} --> (login)`);
+          router.push(`/(login)/LoginScreen`);
         },
       },
     ]);
@@ -24,9 +26,15 @@ export default function Launch() {
     <SafeAreaProvider style={launch.container}>
       <Logo />
       <View>
-        <Text style={text.title}>Sống và Trải Nghiệm</Text>
-        <Text style={text.body}>Hãy để chúng tôi đồng hành cùng bạn</Text>
-        <Text style={launch.text}>Khám Phá An Giang</Text>
+        <Text style={text.title} className="font-roboto-medium">
+          Sống và Trải Nghiệm
+        </Text>
+        <Text style={text.body} className="font-roboto">
+          Hãy để chúng tôi đồng hành cùng bạn
+        </Text>
+        <Text style={launch.text} className="font-roboto-slab-semi-bold">
+          Khám Phá An Giang
+        </Text>
       </View>
       <View style={container.button}>
         <BrownButton label={"Đăng nhập"} alert={alertHandler} />

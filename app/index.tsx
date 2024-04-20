@@ -1,6 +1,6 @@
 import { Redirect } from "expo-router";
 
 export default function RedirectPage() {
-  console.log("/ redirect to (launch)");
+  console.log("--> (launch)");
   return <Redirect href="/(launch)" />;
 }

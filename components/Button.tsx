@@ -24,6 +24,7 @@ export function ButtonCustom({ label, alert, buttonColor, textColor }: any) {
       alignSelf: "stretch",
       borderRadius: 20,
       color: textColor,
+      fontFamily: "Roboto-Medium",
     },
   });
 
