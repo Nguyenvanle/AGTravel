@@ -98,7 +98,7 @@ export default function TabLayout() {
   );
 }
 
-const tab = StyleSheet.create({
+export const tab = StyleSheet.create({
   tabBarStyle: {
     position: "absolute",
     height: 70,

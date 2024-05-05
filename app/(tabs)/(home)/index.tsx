@@ -10,7 +10,7 @@ import Colors from "@/constants/Colors";
 export default function index() {
   return (
     <ScrollView style={container.scrollView}>
-      <SafeAreaView style={container.root}>
+      <View style={container.root}>
         <View style={home.offerContainer}>
           <View style={home.topContainer}>
             <View style={home.welcomeContainer}>
@@ -26,7 +26,7 @@ export default function index() {
           {/* <Text style={text.label}>Mid</Text> */}
           {/* <Text style={text.label}>Bot</Text> */}
         </View>
-      </SafeAreaView>
+      </View>
     </ScrollView>
   );
 }

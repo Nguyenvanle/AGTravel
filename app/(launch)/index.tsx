@@ -2,7 +2,7 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import Logo from "@/components/Logo";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useSegments } from "expo-router";
 import { container } from "@/constants/Container";
 import { BeigeButton, BrownButton, ButtonCustom } from "@/components/Button";
@@ -11,19 +11,19 @@ import { text } from "@/constants/Text";
 export default function Launch() {
   // Hàm xác định trang hiện tại từ đó chuyển hướng tới trang tiếp theo dựa trên trang hiện tại
   const [currentSegments] = useSegments();
-  const alertHandler = () =>
-    Alert.alert("Thông Báo", "Bạn đã đăng nhập thành công 🥰", [
-      {
-        text: "Ok",
-        onPress: () => {
-          console.log(`${currentSegments} --> (login)`);
-          router.push(`/(onboarding)`);
-        },
-      },
-    ]);
+
+  const loginHandler = () => {
+    console.log(`${currentSegments} --> (login)`);
+    router.push(`/(login)/LoginScreen`);
+  };
+
+  const signUpHandler = () => {
+    console.log(`${currentSegments} --> (signUp)`);
+    router.push(`/(login)/(signup)`);
+  };
 
   return (
-    <SafeAreaView style={launch.container}>
+    <View style={launch.container}>
       <Logo />
       <View>
         <Text style={text.title} className="font-roboto-medium">
@@ -37,10 +37,10 @@ export default function Launch() {
         </Text>
       </View>
       <View style={container.button}>
-        <BrownButton label={"Đăng nhập"} alert={alertHandler} />
-        <BeigeButton label={"Đăng Ký"} alert={alertHandler} />
+        <BrownButton label={"Đăng nhập"} alert={loginHandler} />
+        <BeigeButton label={"Đăng Ký"} alert={signUpHandler} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
