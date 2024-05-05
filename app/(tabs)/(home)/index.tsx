@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { container } from "@/constants/Container";
 import { Text } from "react-native";
 import { text } from "@/constants/Text";
@@ -10,7 +10,7 @@ import Colors from "@/constants/Colors";
 export default function index() {
   return (
     <ScrollView style={container.scrollView}>
-      <SafeAreaProvider style={container.root}>
+      <SafeAreaView style={container.root}>
         <View style={home.offerContainer}>
           <View style={home.topContainer}>
             <View style={home.welcomeContainer}>
@@ -26,7 +26,7 @@ export default function index() {
           {/* <Text style={text.label}>Mid</Text> */}
           {/* <Text style={text.label}>Bot</Text> */}
         </View>
-      </SafeAreaProvider>
+      </SafeAreaView>
     </ScrollView>
   );
 }

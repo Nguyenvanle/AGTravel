@@ -2,7 +2,7 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import Logo from "@/components/Logo";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { router, useSegments } from "expo-router";
 import { container } from "@/constants/Container";
 import { BeigeButton, BrownButton, ButtonCustom } from "@/components/Button";
@@ -23,7 +23,7 @@ export default function Launch() {
     ]);
 
   return (
-    <SafeAreaProvider style={launch.container}>
+    <SafeAreaView style={launch.container}>
       <Logo />
       <View>
         <Text style={text.title} className="font-roboto-medium">
@@ -40,7 +40,7 @@ export default function Launch() {
         <BrownButton label={"Đăng nhập"} alert={alertHandler} />
         <BeigeButton label={"Đăng Ký"} alert={alertHandler} />
       </View>
-    </SafeAreaProvider>
+    </SafeAreaView>
   );
 }
 
