@@ -1,6 +1,5 @@
-import Colors from "@/constants/Colors";
+import { header } from "@/constants/Styles";
 import { Stack } from "expo-router";
-import { StyleSheet } from "react-native";
 
 export default function LoginLayout() {
   return (
@@ -8,33 +7,22 @@ export default function LoginLayout() {
       initialRouteName="LoginScreen"
       screenOptions={{
         headerShown: true,
-        headerStyle: login.headerStyle,
+        headerStyle: header.style,
         headerShadowVisible: false,
         headerTitleAlign: "center",
-        headerTitleStyle: login.headerTitle,
+        headerTitleStyle: header.title,
       }}
     >
       <Stack.Screen
         name="LoginScreen"
         options={{ headerShown: true, title: "Đăng Nhập" }}
       />
-      <Stack.Screen name="(signup)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(signup)"
+        options={{ headerShown: true, title: "Đăng Ký" }}
+      />
       <Stack.Screen name="(reset)" options={{ headerShown: false }} />
       <Stack.Screen name="(forgot)" options={{ headerShown: false }} />
     </Stack>
   );
 }
-
-const login = StyleSheet.create({
-  headerStyle: {
-    borderBottomWidth: 0, // Tắt đường viền dưới cùng
-    shadowColor: "transparent", // Tắt bóng (shadow) trên iOS
-    elevation: 0, // Tắt bóng (shadow) trên Android
-    backgroundColor: Colors.background,
-  },
-  headerTitle: {
-    color: Colors.dark.black,
-    fontWeight: "600",
-    fontSize: 34,
-  },
-});

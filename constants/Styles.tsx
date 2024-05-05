@@ -54,3 +54,18 @@ export const input = StyleSheet.create({
     borderColor: Colors.primary,
   },
 });
+
+export const header = StyleSheet.create({
+  style: {
+    borderBottomWidth: 0, // Tắt đường viền dưới cùng
+    shadowColor: "transparent", // Tắt bóng (shadow) trên iOS
+    elevation: 0, // Tắt bóng (shadow) trên Android
+    backgroundColor: Colors.background,
+  },
+  title: {
+    color: Colors.dark.black,
+    fontWeight: "600",
+    fontSize: 34,
+  },
+});
+
