@@ -25,17 +25,6 @@ export default function LoginPage() {
     <ScrollView style={container.scrollView}>
       <View style={container.root}>
         <Logo />
-        <View style={{ ...home.offerContainer, paddingTop: 10 }}>
-          <View style={home.topContainer}>
-            <View style={home.welcomeContainer}>
-              <Text style={{ ...homeText.title, color: Colors.light.white }}>
-                Xin chào
-              </Text>
-              <Text style={text.body}>Đăng nhập để tiếp tục</Text>
-            </View>
-            <View style={home.searchIconContainer}></View>
-          </View>
-        </View>
         <FormField
           title="Email"
           placeholder="nguyenvana@gmail.com"
