@@ -3,7 +3,7 @@ import { text } from "@/constants/Text";
 import { Button } from "@rneui/themed";
 import { StyleSheet, View, Text, Alert } from "react-native";
 
-export function ButtonCustom({ label, alert, buttonColor, textColor }: any) {
+export function ButtonCustom({ label, onPress, buttonColor, textColor }: any) {
   const button = StyleSheet.create({
     button: {
       flex: 0,
@@ -31,7 +31,7 @@ export function ButtonCustom({ label, alert, buttonColor, textColor }: any) {
   return (
     <Button
       buttonStyle={button.button}
-      onPress={alert}
+      onPress={onPress}
       title={label}
       loading={false}
       loadingProps={{ size: "small", color: "white" }}
@@ -40,22 +40,22 @@ export function ButtonCustom({ label, alert, buttonColor, textColor }: any) {
   );
 }
 
-export function BrownButton({ label, alert }: any) {
+export function BrownButton({ label, onPress }: any) {
   return (
     <ButtonCustom
       label={label}
-      alert={alert}
+      onPress={onPress}
       buttonColor={Colors.dark.brown}
       textColor={Colors.light.milk}
     />
   );
 }
 
-export function BeigeButton({ label, alert }: any) {
+export function BeigeButton({ label, onPress }: any) {
   return (
     <ButtonCustom
       label={label}
-      alert={alert}
+      onPress={onPress}
       buttonColor={Colors.light.beige}
       textColor={Colors.light.milk}
     />

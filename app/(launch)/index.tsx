@@ -37,8 +37,8 @@ export default function Launch() {
         </Text>
       </View>
       <View style={container.button}>
-        <BrownButton label={"Đăng nhập"} alert={loginHandler} />
-        <BeigeButton label={"Đăng Ký"} alert={signUpHandler} />
+        <BrownButton label={"Đăng nhập"} onPress={loginHandler} />
+        <BeigeButton label={"Đăng Ký"} onPress={signUpHandler} />
       </View>
     </View>
   );
