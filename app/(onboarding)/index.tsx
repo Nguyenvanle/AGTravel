@@ -74,6 +74,7 @@ export default class OnBoardingPage extends React.Component {
       </View>
     );
   };
+
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
@@ -94,13 +95,13 @@ export default class OnBoardingPage extends React.Component {
 
   render() {
     const doneHandler = () => {
-      console.log(`(onboarding) --> (home)`);
-      router.push(`/(tabs)/(home)`);
+      console.log(`(onboarding) --> (signup)`);
+      router.push(`/(login)/(signup)`);
     };
 
     const skipHandler = () => {
-      console.log("(onboarding) x-> (home)");
-      router.push("/(tabs)/(home)");
+      console.log("(onboarding) x-> (signup)");
+      router.push("/(login)/(signup)");
     };
 
     return (

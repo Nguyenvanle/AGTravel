@@ -31,7 +31,7 @@ export default function index() {
   );
 }
 
-const home = StyleSheet.create({
+export const home = StyleSheet.create({
   offerContainer: {
     flex: 0,
     justifyContent: "center",
@@ -58,7 +58,7 @@ const home = StyleSheet.create({
   },
 });
 
-const homeText = StyleSheet.create({
+export const homeText = StyleSheet.create({
   title: {
     ...text.title,
     color: Colors.primary,

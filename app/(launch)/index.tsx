@@ -18,8 +18,8 @@ export default function Launch() {
   };
 
   const signUpHandler = () => {
-    console.log(`${currentSegments} --> (signUp)`);
-    router.push(`/(login)/(signup)`);
+    console.log(`${currentSegments} --> (onboarding)`);
+    router.push(`/(onboarding)`);
   };
 
   return (
