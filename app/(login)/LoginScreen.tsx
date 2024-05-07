@@ -12,7 +12,7 @@ import Colors from "@/constants/Colors";
 import { useState } from "react";
 import { ButtonCustom } from "@/components/Button";
 import { signIn } from "@/services/firebaseAuth";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -64,6 +64,22 @@ export default function LoginPage() {
             textColor={Colors.light.milk}
           />
         )}
+        <Link
+          href={"/(login)/(forgot)"}
+          className="text-center text-white text-base font-roboto-bold"
+        >
+          Quên mật khẩu?
+        </Link>
+        <Text className="text-center text-white text-sm font-roboto">
+          Bạn chưa có tài khoản?
+          <Link
+            href={"/(login)/(signup)"}
+            className="text-center text-primary text-sm font-roboto-bold"
+          >
+            {" "}
+            Đăng ký
+          </Link>
+        </Text>
       </View>
     </ScrollView>
   );

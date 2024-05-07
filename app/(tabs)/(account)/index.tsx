@@ -17,8 +17,8 @@ export default function index() {
     try {
       await logout();
       console.log("Logout success");
-      console.log(`(account) --> (login)`);
-      router.replace(`/(login)/LoginScreen`);
+      console.log(`(account) --> (launch)`);
+      router.replace(`/(launch)`);
     } catch (error: any) {
       console.log("Logout fail: ", error.message);
     }

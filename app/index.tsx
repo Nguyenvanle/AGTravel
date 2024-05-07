@@ -1,8 +1,8 @@
 import Colors from "@/constants/Colors";
 import { container } from "@/constants/Container";
 import { useAuth } from "@/hooks/useAuth";
-import { router, useSegments } from "expo-router";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function RedirectPage() {

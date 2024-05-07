@@ -22,7 +22,10 @@ export default function LoginLayout() {
         options={{ headerShown: true, title: "Đăng Ký" }}
       />
       <Stack.Screen name="(reset)" options={{ headerShown: false }} />
-      <Stack.Screen name="(forgot)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(forgot)"
+        options={{ headerShown: true, title: "Quên Mật Khẩu" }}
+      />
     </Stack>
   );
 }
