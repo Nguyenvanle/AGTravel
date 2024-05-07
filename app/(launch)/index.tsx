@@ -1,8 +1,6 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import Colors from "@/constants/Colors";
 import Logo from "@/components/Logo";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useSegments } from "expo-router";
 import { container } from "@/constants/Container";
 import { BeigeButton, BrownButton, ButtonCustom } from "@/components/Button";

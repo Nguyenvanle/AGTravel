@@ -1,0 +1,20 @@
+1. Khi muốn gọi API để tải dữ liệu:
+useEffect(() => {
+  // Gọi API để tải dữ liệu
+}, []); // Mảng rỗng nghĩa là effect này chỉ chạy một lần sau khi component mounted
+
+2. Khi cần "phản ứng" với sự thay đổi của props hoặc state:
+useEffect(() => {
+  // Gửi dữ liệu lên server
+}, [yourData]); // Effect này sẽ chạy mỗi khi 'yourData' thay đổi
+
+3. Dọn dẹp:
+useEffect(() => {
+  // Tạo interval
+  let id = setInterval(() => {
+    // Làm một việc gì đó
+  }, 1000);
+
+  // Hàm dọn dẹp
+  return () => clearInterval(id);
+}, []); // Chỉ chạy một lần
