@@ -2,27 +2,32 @@ import Colors from "@/constants/Colors";
 import { container } from "@/constants/Container";
 import { useAuth } from "@/hooks/useAuth";
 import { router, useSegments } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 export default function RedirectPage() {
-  // Hàm xác định trang hiện tại từ đó chuyển hướng tới trang tiếp theo dựa trên trang hiện tại
-  const [currentSegments] = useSegments();
-  const user = useAuth();
-  // Hàm tải dữ liệu user và khi segments hiện tại được tải sau đó logic chuyển hướng
-  useEffect(() => {
-    if (user) {
-      console.log(`/ x-> (home)`);
-      router.replace(`/(tabs)/(home)`); // Chuyển đổi này phụ thuộc vào định nghĩa của các routes của bạn.
-    }
-  }, [user]);
+  const { user, loading } = useAuth();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
+  // Cập nhật trạng thái khi dữ liệu của người dùng và segments có sẵn
   useEffect(() => {
-    if (currentSegments && !user) {
-      console.log(`/ x-> (launch)`);
-      router.replace(`/(launch)`); // Chuyển đổi này phụ thuộc vào định nghĩa của các routes của bạn.
+    if (loading == false) {
+      setIsDataLoaded(true);
     }
-  }, [currentSegments]);
+  }, [loading]);
+
+  // Chuyển hướng khi tất cả dữ liệu đã sẵn sàng
+  useEffect(() => {
+    if (isDataLoaded) {
+      if (user) {
+        console.log(`/ x-> (home)`);
+        router.replace(`/(tabs)/(home)`);
+      } else {
+        console.log(`/ x-> (launch)`);
+        router.replace(`/(launch)`);
+      }
+    }
+  }, [isDataLoaded]);
 
   return (
     <View style={container.root}>

@@ -12,6 +12,7 @@ import Colors from "@/constants/Colors";
 import { useState } from "react";
 import { ButtonCustom } from "@/components/Button";
 import { signIn } from "@/services/firebaseAuth";
+import { router } from "expo-router";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -25,6 +26,8 @@ export default function LoginPage() {
       const userCredential = await signIn({ email, password });
       // Tiếp tục logic ở đây sau khi đăng nhập thành công
       console.log("Đăng nhập thành công:", userCredential);
+      console.log(`(login) --> (home)`);
+      router.replace(`/(tabs)/(home)`);
     } catch (error: any) {
       // Hiển thị một thông báo lỗi nếu có
       console.log("Đăng nhập thất bại:", error);
