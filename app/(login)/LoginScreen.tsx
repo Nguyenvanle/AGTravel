@@ -85,12 +85,14 @@ export default function LoginPage() {
   );
 }
 
-function FormField({
+export function FormField({
   title,
   placeholder,
   value,
   onChangeText,
   secureTextEntry,
+  autoCapitalize,
+  keyboardType,
 }: any) {
   return (
     <View className="flex-1 py-[10px] justify-center self-stretch gap-2.5">
@@ -103,6 +105,8 @@ function FormField({
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry} // Để ngăn nhập liệu mật khẩu
+        autoCapitalize={autoCapitalize}
+        keyboardType={keyboardType}
       ></TextInput>
     </View>
   );
