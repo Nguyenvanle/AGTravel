@@ -1,9 +1,12 @@
-import { StyleSheet } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { container } from "@/constants/Container";
 
 export default function index() {
-  return <SafeAreaProvider style={container.root}></SafeAreaProvider>;
+  return (
+    <ScrollView style={container.scrollView}>
+      <View style={container.root}></View>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({});
