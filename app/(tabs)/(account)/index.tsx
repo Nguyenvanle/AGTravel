@@ -1,7 +1,5 @@
 import { ScrollView, StyleSheet, View } from "react-native";
 import { container } from "@/constants/Container";
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
 import { logout } from "@/services/firebaseAuth";
 import { router } from "expo-router";
 import { BrownButton } from "@/components/Button";
@@ -11,12 +9,6 @@ import {
 } from "@/services/storageService";
 
 export default function index() {
-  const user = useAuth();
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const pressHandler = async () => {
     try {
       await logout();

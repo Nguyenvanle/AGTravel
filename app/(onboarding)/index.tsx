@@ -125,7 +125,7 @@ export default class OnBoardingPage extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   slide: {
     flex: 1,
     alignItems: "center",

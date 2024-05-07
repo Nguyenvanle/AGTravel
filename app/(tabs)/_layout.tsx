@@ -31,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(home)"
         options={{
-          title: "Home",
+          title: "Trang Chủ",
           tabBarIcon: ({ color }) => (
             <AntDesign size={iconSize} name="home" color={color} />
           ),
@@ -42,7 +42,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(destinations)"
         options={{
-          title: "Destinations",
+          title: "Địa Điểm",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="map-marker-radius-outline"
@@ -57,7 +57,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(booking)"
         options={{
-          title: "Booking",
+          title: "Đặt Tour",
           tabBarIcon: ({ color }) => (
             <Ionicons name="ticket-outline" size={iconSize} color={color} />
           ),
@@ -79,7 +79,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="(account)"
         options={{
-          title: "Account",
+          title: "Tài Khoản",
           tabBarIcon: ({ color }) => (
             <Feather name="user" size={iconSize} color={color} />
           ),

@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { FormField } from "../LoginScreen";
 import Colors from "@/constants/Colors";
 import { BrownButton } from "@/components/Button";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { getData, storeData } from "@/services/storageService";
 
 export default function SignUpPage() {
@@ -101,6 +101,21 @@ export default function SignUpPage() {
         ) : (
           <BrownButton label="Đăng Ký" onPress={handleSignUp} />
         )}
+        <Text className="text-center text-sm font-roboto-black text-black">
+          {
+            "Khi tiếp tục, bạn đã đồng ý với \n Điều khoảng sử dụng và Chính sách bảo mật "
+          }
+        </Text>
+        <Text className="text-center text-white text-sm font-roboto">
+          Bạn đã có tài khoản?
+          <Link
+            href={"/(login)/LoginScreen"}
+            className="text-center text-primary text-sm font-roboto-bold"
+          >
+            {" "}
+            Đăng nhập
+          </Link>
+        </Text>
       </View>
     </ScrollView>
   );
