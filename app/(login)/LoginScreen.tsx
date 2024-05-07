@@ -12,6 +12,7 @@ import Colors from "@/constants/Colors";
 import { useState } from "react";
 import { ButtonCustom } from "@/components/Button";
 import { signIn } from "@/services/firebaseAuth";
+import { replaceLog } from "@/services/routerLog";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -25,6 +26,7 @@ export default function LoginPage() {
       const userCredential = await signIn({ email, password });
       // Tiếp tục logic ở đây sau khi đăng nhập thành công
       console.log("Đăng nhập thành công:", userCredential);
+      replaceLog("/(tabs)/(home)", "(login) --> (home)");
     } catch (error: any) {
       // Hiển thị một thông báo lỗi nếu có
       console.log("Đăng nhập thất bại:", error);
@@ -61,6 +63,9 @@ export default function LoginPage() {
             textColor={Colors.light.milk}
           />
         )}
+        <Text className="text-white text-base font-roboto-bold">
+          Quên mật khẩu?
+        </Text>
       </View>
     </ScrollView>
   );
