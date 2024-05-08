@@ -86,3 +86,31 @@ export const getToursFromAsyncStorage = async () => {
     );
   }
 };
+
+export const storeSelectedTourInfo = async (tourInfo: object) => {
+  try {
+    // Chuyển đổi thông tin tour thành chuỗi JSON để lưu trữ
+    const jsonValue = JSON.stringify(tourInfo);
+    // Lưu chuỗi JSON vào AsyncStorage với key 'selectedTourInfo'
+    await AsyncStorage.setItem("selectedTourInfo", jsonValue);
+    console.log("Thông tin tour đã được lưu thành công.");
+  } catch (error) {
+    console.error("Có lỗi xảy ra khi lưu thông tin tour:", error);
+  }
+};
+
+export const getSelectedTourInfo = async () => {
+  try {
+    // Truy xuất chuỗi JSON của thông tin tour từ AsyncStorage
+    const jsonValue = await AsyncStorage.getItem("selectedTourInfo");
+    if (jsonValue == null) {
+      console.log("Không có thông tin tour nào được lưu trữ.");
+      return null;
+    }
+    // Chuyển đổi chuỗi JSON về định dạng object để sử dụng
+    console.log("Thông tin tour đã được truy xuất thành công.");
+    return JSON.parse(jsonValue);
+  } catch (error) {
+    console.error("Có lỗi xảy ra khi truy xuất thông tin tour:", error);
+  }
+};

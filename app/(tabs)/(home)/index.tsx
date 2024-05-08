@@ -26,9 +26,12 @@ import AppIntroSlider from "react-native-app-intro-slider";
 import { Button, Card, Icon } from "@rneui/themed";
 import { PricingCard, lightColors } from "@rneui/base";
 import {
+  getSelectedTourInfo,
   getToursFromAsyncStorage,
+  storeSelectedTourInfo,
   storeToursToAsyncStorage,
 } from "@/services/storageService";
+import { router } from "expo-router";
 
 export default function index() {
   const [pagoda, setPagoda] = useState(false);
@@ -133,7 +136,7 @@ export default function index() {
               price="Từ 580.000 VND"
               rating="⭐ 4.5"
               onBookPress={() => {
-                // Hành động đặt tour
+                console.log("Booking Now");
               }}
               imageSrc={
                 "https://ik.imagekit.io/tvlk/blog/2023/05/chua-hang-8.jpg?tr=dpr-2,w-675"
@@ -342,18 +345,21 @@ const TourList = () => {
   return (
     <>
       {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color="white" className="self-center" />
       ) : (
-        tours.map((item: any, index) => (
+        tours.map((item: any) => (
           <TourCard
-            key={index}
+            key={item.id}
             title={item.title}
             slot={item.slot}
             viewerCount={`${item.viewerCount}+`}
             price={`Từ ${item.price} VND`}
             rating={`⭐ ${item.rating}`}
-            onBookPress={() => {
+            onBookPress={async () => {
               console.log("Booking Now");
+              console.log(item.id);
+              await storeSelectedTourInfo(item);
+              router.push("/(tabs)/(booking)");
             }}
             imageSrc={`${item.imageSrc}`}
           />
