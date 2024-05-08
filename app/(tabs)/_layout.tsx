@@ -72,6 +72,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="chatbox-outline" size={iconSize} color={color} />
           ),
+          href: null,
         }}
       />
 

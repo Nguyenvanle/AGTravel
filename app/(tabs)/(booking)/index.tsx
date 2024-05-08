@@ -21,12 +21,9 @@ import { useRoute } from "@react-navigation/native";
 
 export default function index() {
   // State cho các trường dữ liệu cần thiết
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthday, setBirthday] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [numOfParticipants, setNumOfParticipants] = useState("");
+
   const [isLoading, setLoading] = useState(false);
 
   const [selectedTour, setSelectedTour] = useState<any>(null);
@@ -48,30 +45,30 @@ export default function index() {
 
   // Xử lý logic đăng ký bên trong một hàm riêng biệt
   const handleSignUp = async () => {
-    if (password !== confirmPassword) {
-      Alert.alert("Lỗi", "Mật khẩu xác nhận không khớp.");
-      return;
-    }
-    // Logic đăng ký người dùng
-    setLoading(true);
-    try {
-      const userCredential = await signUp({ email, password });
-      Alert.alert("Thành công", "Tài khoản đã được tạo.");
-      // Lưu thông tin người dùng vào AsyncStorage
-      await storeData("userInfo", {
-        fullName,
-        email,
-        phone,
-        birthday,
-        uid: userCredential.user.uid,
-      });
-      console.log(`(login) --> (home)`);
-      router.replace(`/(tabs)/(home)`);
-    } catch (error: any) {
-      Alert.alert("Đăng ký thất bại", error.message);
-    } finally {
-      setLoading(false);
-    }
+    // if (password !== confirmPassword) {
+    //   Alert.alert("Lỗi", "Mật khẩu xác nhận không khớp.");
+    //   return;
+    // }
+    // // Logic đăng ký người dùng
+    // setLoading(true);
+    // try {
+    //   const userCredential = await signUp({ email, password });
+    //   Alert.alert("Thành công", "Tài khoản đã được tạo.");
+    //   // Lưu thông tin người dùng vào AsyncStorage
+    //   await storeData("userInfo", {
+    //     fullName,
+    //     email,
+    //     phone,
+    //     birthday,
+    //     uid: userCredential.user.uid,
+    //   });
+    //   console.log(`(login) --> (home)`);
+    //   router.replace(`/(tabs)/(home)`);
+    // } catch (error: any) {
+    //   Alert.alert("Đăng ký thất bại", error.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
@@ -88,13 +85,54 @@ export default function index() {
         {/* Mỗi FormField sẽ đảm nhiệm việc hiển thị UI cho từng trường dữ liệu */}
         <FormFieldBooking
           title="Giới Thiệu"
-          value={selectedTour.title}
-          onChangeText={setFullName}
+          placeholder={selectedTour.introduce}
           multiline={true}
-          numberOfLines={6}
+          numberOfLines={4}
           editable={false}
         />
+        <FormFieldBooking
+          title="Giá Tour"
+          placeholder={`Từ ${selectedTour.price} VND/ Người`}
+          multiline={true}
+          editable={false}
+        />
+        <FormFieldBooking
+          title="Mô Tả Hành Trình"
+          placeholder={selectedTour.wayInfo}
+          multiline={true}
+          editable={false}
+        />
+        <FormFieldBooking
+          title="Thời Gian"
+          placeholder={selectedTour.time}
+          multiline={true}
+          editable={false}
+        />
+        <FormFieldBooking
+          title="Chỗ Trống Còn Lại"
+          placeholder={selectedTour.slot}
+          multiline={true}
+          editable={false}
+        />
+
         <FormField
+          title="Địa chỉ đón"
+          placeholder="Nhập địa chỉ đón"
+          keyboardType="default"
+          value={address}
+          onChangeText={setAddress}
+          autoCapitalize="words"
+        />
+        <FormField
+          title="Số người tham gia"
+          placeholder="Nhập số người tham gia"
+          keyboardType="numeric"
+          value={numOfParticipants}
+          onChangeText={setNumOfParticipants}
+          autoCapitalize="none"
+        />
+
+        {/* <FormField
           title="Email"
           placeholder="nguyenvana@gmail.com"
           keyboardType="email-address"
@@ -130,7 +168,7 @@ export default function index() {
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           autoCapitalize="none"
-        />
+        /> */}
 
         {isLoading ? (
           <ActivityIndicator size="large" color={Colors.dark.grey} />
@@ -139,18 +177,8 @@ export default function index() {
         )}
         <Text className="text-center text-sm font-roboto-black text-black">
           {
-            "Khi tiếp tục, bạn đã đồng ý với \n Điều khoảng sử dụng và Chính sách bảo mật "
+            "Khi tiếp tục, bạn đã đồng ý với \n Chính sách hủy/hoàn tiền và Điều khoản sử dụng dịch vụ "
           }
-        </Text>
-        <Text className="text-center text-white text-sm font-roboto">
-          Bạn đã có tài khoản?
-          <Link
-            href={"/(login)/LoginScreen"}
-            className="text-center text-primary text-sm font-roboto-bold"
-          >
-            {" "}
-            Đăng nhập
-          </Link>
         </Text>
       </View>
     </ScrollView>
@@ -185,6 +213,7 @@ export function FormFieldBooking({
         keyboardType={keyboardType}
         multiline={multiline}
         numberOfLines={numberOfLines}
+        placeholderTextColor="black"
       ></TextInput>
     </View>
   );

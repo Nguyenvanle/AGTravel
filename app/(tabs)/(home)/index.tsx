@@ -129,19 +129,7 @@ export default function index() {
               Tour Bán Chạy
             </Text>
 
-            <TourCard
-              title="Chùa Hang - Tuyệt sắc linh thiên Châu Đốc"
-              slot="30/100"
-              viewerCount="10K+"
-              price="Từ 580.000 VND"
-              rating="⭐ 4.5"
-              onBookPress={() => {
-                console.log("Booking Now");
-              }}
-              imageSrc={
-                "https://ik.imagekit.io/tvlk/blog/2023/05/chua-hang-8.jpg?tr=dpr-2,w-675"
-              }
-            />
+            <TourListSlice />
 
             <Text className="pt-4 pb-1 text-center text-base font-roboto-black">
               Tour Mới Nhất
@@ -348,6 +336,65 @@ const TourList = () => {
         <ActivityIndicator size="large" color="white" className="self-center" />
       ) : (
         tours.map((item: any) => (
+          <TourCard
+            key={item.id}
+            title={item.title}
+            slot={item.slot}
+            viewerCount={`${item.viewerCount}+`}
+            price={`Từ ${item.price} VND`}
+            rating={`⭐ ${item.rating}`}
+            onBookPress={async () => {
+              console.log("Booking Now");
+              console.log(item.id);
+              await storeSelectedTourInfo(item);
+              router.push("/(tabs)/(booking)");
+            }}
+            imageSrc={`${item.imageSrc}`}
+          />
+        ))
+      )}
+    </>
+  );
+};
+
+const TourListSlice = () => {
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const handleGetTour = async () => {
+    try {
+      await storeToursToAsyncStorage();
+      const toursInfo = await getToursFromAsyncStorage();
+      console.log(toursInfo);
+      return toursInfo;
+    } catch (error: any) {
+      console.log("Lỗi GetTour:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    // Hàm giả định để lấy dữ liệu từ cơ sở dữ liệu
+    const fetchData = async () => {
+      try {
+        // Gọi API hoặc sử dụng SDK cơ sở dữ liệu để lấy dữ liệu
+        const data = await handleGetTour();
+        setTours(data);
+        console.log(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+  return (
+    <>
+      {loading ? (
+        <ActivityIndicator size="large" color="white" className="self-center" />
+      ) : (
+        tours.slice(1, 2).map((item: any) => (
           <TourCard
             key={item.id}
             title={item.title}
