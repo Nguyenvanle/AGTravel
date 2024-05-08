@@ -18,3 +18,9 @@ useEffect(() => {
   // Hàm dọn dẹp
   return () => clearInterval(id);
 }, []); // Chỉ chạy một lần
+
+To do:
+
+1. Đưa thông tin địa điểm vào trang, trang sẽ hiển thị theo cơ sở dữ liệu
+2. Nhấn vào nút đặt tour để tiến hành điền thông tin và xuất phiếu
+3. Khi ấn vào đặt tour mà chưa chọn tour sẽ hiển thị một thông báo yêu cầu người dùng chọn tour ở trang chủ

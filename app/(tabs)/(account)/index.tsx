@@ -5,6 +5,8 @@ import { router } from "expo-router";
 import { BrownButton } from "@/components/Button";
 import {
   getData,
+  getToursFromAsyncStorage,
+  storeToursToAsyncStorage,
   updateUserToFirestoreWithAsyncStorage,
 } from "@/services/storageService";
 
@@ -34,6 +36,16 @@ export default function index() {
     }
   };
 
+  const handleGetTour = async () => {
+    try {
+      await storeToursToAsyncStorage();
+      const toursInfo = await getToursFromAsyncStorage();
+      console.log(toursInfo);
+    } catch (error: any) {
+      console.log("Lỗi GetTour:", error.message);
+    }
+  };
+
   return (
     <ScrollView style={container.scrollView}>
       <View style={container.root}>
@@ -45,6 +57,10 @@ export default function index() {
         <BrownButton
           label={"Cập nhật Database"}
           onPress={handleDatabaseUpdate}
+        ></BrownButton>
+        <BrownButton
+          label={"Thông tin tour"}
+          onPress={handleGetTour}
         ></BrownButton>
       </View>
     </ScrollView>

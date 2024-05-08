@@ -1,6 +1,6 @@
 // services/storageService.ts
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getDoc, doc, setDoc } from "firebase/firestore";
+import { getDoc, doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
 export const storeData = async (key: string, value: any) => {
@@ -45,5 +45,44 @@ export const updateUserToFirestoreWithAsyncStorage = async () => {
     }
   } catch (error) {
     console.error("Có lỗi xảy ra khi cập nhật người dùng:", error);
+  }
+};
+
+export const storeToursToAsyncStorage = async () => {
+  try {
+    // Lấy reference đến collection 'tours'
+    const toursColRef = collection(db, "tours");
+
+    // Lấy tất cả documents từ collection 'tours'
+    const tourSnapshot = await getDocs(toursColRef);
+    // Chuyển documents thành mảng các đối tượng tour, bao gồm cả id
+    const tourList = tourSnapshot.docs.map((doc) => ({
+      id: doc.id, // Thêm id vào đây
+      ...doc.data(),
+    }));
+
+    // Lưu tourList vào AsyncStorage dưới dạng JSON string
+    const jsonValue = JSON.stringify(tourList);
+    await AsyncStorage.setItem("tours", jsonValue);
+
+    console.log("Danh sách tour đã được lưu vào AsyncStorage");
+  } catch (error) {
+    console.error(
+      "Có lỗi xảy ra khi lưu danh sách tour vào AsyncStorage:",
+      error
+    );
+  }
+};
+
+export const getToursFromAsyncStorage = async () => {
+  try {
+    // Lấy danh sách tours từ AsyncStorage
+    const jsonValue = await AsyncStorage.getItem("tours");
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+  } catch (error) {
+    console.error(
+      "Có lỗi xảy ra khi lấy danh sách tour từ AsyncStorage:",
+      error
+    );
   }
 };
