@@ -34,7 +34,7 @@ import {
 import { router } from "expo-router";
 
 export default function index() {
-  const [pagoda, setPagoda] = useState(false);
+  const [pagoda, setPagoda] = useState(true);
   const [mountain, setMountain] = useState(false);
   const [cultural, setCultural] = useState(false);
   const [general, setGeneral] = useState(false);
@@ -297,7 +297,7 @@ export const TourCard: React.FC<TourCardProps> = ({
   );
 };
 
-const TourList = () => {
+export const TourList = () => {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
 

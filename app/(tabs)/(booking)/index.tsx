@@ -2,22 +2,18 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
-  StyleSheet,
   TextInput,
   View,
 } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { container } from "@/constants/Container";
-import { signUp } from "@/services/firebaseAuth";
-import { getSelectedTourInfo, storeData } from "@/services/storageService";
-import { Link, router, useLocalSearchParams, useSegments } from "expo-router";
+import { getSelectedTourInfo } from "@/services/storageService";
+import { router, useSegments } from "expo-router";
 import { FormField } from "@/app/(login)/LoginScreen";
 import { BrownButton } from "@/components/Button";
 import Colors from "@/constants/Colors";
 import { Text } from "react-native";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
-import { useRoute } from "@react-navigation/native";
 
 export default function index() {
   // State cho các trường dữ liệu cần thiết
@@ -38,148 +34,138 @@ export default function index() {
     fetchTourInfo();
   }, [segments]);
 
-  // Hiển thị "Đang tải..." nếu chưa có dữ liệu
-  if (selectedTour === null) {
-    return <Text>Đang tải...</Text>;
-  }
+  const compareNum = () => {
+    let str = selectedTour.slot;
+    let firstTwoChars = str.substring(0, 2);
+    console.log(firstTwoChars); // Output: "He"
+
+    let strNum1 = str;
+    let strNum2 = numOfParticipants;
+
+    const isInteger = /^-?\d+$/.test(numOfParticipants);
+
+    if (!isInteger) return 0;
+
+    // Chuyển chuỗi thành số nguyên rồi so sánh
+    try {
+      let num1 = parseInt(strNum1);
+      let num2 = parseInt(strNum2);
+
+      if (num1 > num2) {
+        console.log(strNum1 + " lớn hơn " + strNum2);
+        return 1;
+      } else if (num1 < num2) {
+        console.log(strNum1 + " nhỏ hơn " + strNum2);
+        return 2;
+      } else {
+        console.log(strNum1 + " bằng " + strNum2);
+        return 3;
+      }
+    } catch (e) {
+      return 4;
+    }
+  };
 
   // Xử lý logic đăng ký bên trong một hàm riêng biệt
   const handleSignUp = async () => {
-    // if (password !== confirmPassword) {
-    //   Alert.alert("Lỗi", "Mật khẩu xác nhận không khớp.");
-    //   return;
-    // }
-    // // Logic đăng ký người dùng
-    // setLoading(true);
-    // try {
-    //   const userCredential = await signUp({ email, password });
-    //   Alert.alert("Thành công", "Tài khoản đã được tạo.");
-    //   // Lưu thông tin người dùng vào AsyncStorage
-    //   await storeData("userInfo", {
-    //     fullName,
-    //     email,
-    //     phone,
-    //     birthday,
-    //     uid: userCredential.user.uid,
-    //   });
-    //   console.log(`(login) --> (home)`);
-    //   router.replace(`/(tabs)/(home)`);
-    // } catch (error: any) {
-    //   Alert.alert("Đăng ký thất bại", error.message);
-    // } finally {
-    //   setLoading(false);
-    // }
+    if (address && numOfParticipants) {
+      if (compareNum() === 0)
+        Alert.alert("Sai thông tin", "Số người tham gia phải là số nguyên");
+      else if (compareNum() === 2)
+        Alert.alert(
+          "Sai thông tin",
+          "Số người tham gia vượt quá chỗ trống còn lại"
+        );
+      else
+        Alert.alert(
+          "Thành công",
+          "Thông tin đặt tour của bạn đã được lưu lại."
+        );
+      router.replace("/");
+    } else {
+      Alert.alert("Thiếu thông tin", "Vui lòng nhập đủ thông tin đặt tour.");
+    }
   };
 
   return (
     <ScrollView style={container.scrollView}>
       <View style={container.root}>
-        <Text className="text-primary text-xl font-roboto-bold capitalize leading-snug">
-          {selectedTour.title}
-        </Text>
-        <Image
-          source={{ uri: selectedTour.imageSrc }}
-          className="w-[333px] h-[333px] rounded-xl"
-          resizeMode="cover"
-        ></Image>
-        {/* Mỗi FormField sẽ đảm nhiệm việc hiển thị UI cho từng trường dữ liệu */}
-        <FormFieldBooking
-          title="Giới Thiệu"
-          placeholder={selectedTour.introduce}
-          multiline={true}
-          numberOfLines={4}
-          editable={false}
-        />
-        <FormFieldBooking
-          title="Giá Tour"
-          placeholder={`Từ ${selectedTour.price} VND/ Người`}
-          multiline={true}
-          editable={false}
-        />
-        <FormFieldBooking
-          title="Mô Tả Hành Trình"
-          placeholder={selectedTour.wayInfo}
-          multiline={true}
-          editable={false}
-        />
-        <FormFieldBooking
-          title="Thời Gian"
-          placeholder={selectedTour.time}
-          multiline={true}
-          editable={false}
-        />
-        <FormFieldBooking
-          title="Chỗ Trống Còn Lại"
-          placeholder={selectedTour.slot}
-          multiline={true}
-          editable={false}
-        />
-
-        <FormField
-          title="Địa chỉ đón"
-          placeholder="Nhập địa chỉ đón"
-          keyboardType="default"
-          value={address}
-          onChangeText={setAddress}
-          autoCapitalize="words"
-        />
-        <FormField
-          title="Số người tham gia"
-          placeholder="Nhập số người tham gia"
-          keyboardType="numeric"
-          value={numOfParticipants}
-          onChangeText={setNumOfParticipants}
-          autoCapitalize="none"
-        />
-
-        {/* <FormField
-          title="Email"
-          placeholder="nguyenvana@gmail.com"
-          keyboardType="email-address"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-        />
-        <FormField
-          title="Số điện thoại"
-          placeholder="0356887321"
-          value={phone}
-          onChangeText={setPhone}
-          keyboardType="number-pad"
-        />
-        <FormField
-          title="Ngày sinh"
-          placeholder="01/01/2000"
-          value={birthday}
-          onChangeText={setBirthday}
-        />
-        <FormField
-          title="Mật khẩu"
-          placeholder="**********"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          autoCapitalize="none"
-        />
-        <FormField
-          title="Xác nhận mật khẩu"
-          placeholder="**********"
-          secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          autoCapitalize="none"
-        /> */}
-
-        {isLoading ? (
-          <ActivityIndicator size="large" color={Colors.dark.grey} />
+        {selectedTour === null ? (
+          <>
+            <ActivityIndicator size="large" color={Colors.dark.grey} />
+          </>
         ) : (
-          <BrownButton label="Đăng Ký" onPress={handleSignUp} />
+          <>
+            <Text className="text-primary text-xl font-roboto-bold capitalize leading-snug">
+              {selectedTour.title}
+            </Text>
+            <Image
+              source={{ uri: selectedTour.imageSrc }}
+              className="w-[333px] h-[333px] rounded-xl"
+              resizeMode="cover"
+            ></Image>
+            {/* Mỗi FormField sẽ đảm nhiệm việc hiển thị UI cho từng trường dữ liệu */}
+            <FormFieldBooking
+              title="Giới Thiệu"
+              placeholder={selectedTour.introduce}
+              multiline={true}
+              numberOfLines={4}
+              editable={false}
+            />
+            <FormFieldBooking
+              title="Giá Tour"
+              placeholder={`Từ ${selectedTour.price} VND/ Người`}
+              multiline={true}
+              editable={false}
+            />
+            <FormFieldBooking
+              title="Mô Tả Hành Trình"
+              placeholder={selectedTour.wayInfo}
+              multiline={true}
+              editable={false}
+            />
+            <FormFieldBooking
+              title="Thời Gian"
+              placeholder={selectedTour.time}
+              multiline={true}
+              editable={false}
+            />
+            <FormFieldBooking
+              title="Chỗ Trống Còn Lại"
+              placeholder={selectedTour.slot}
+              multiline={true}
+              editable={false}
+            />
+
+            <FormField
+              title="Địa chỉ đón"
+              placeholder="Nhập địa chỉ đón"
+              keyboardType="default"
+              value={address}
+              onChangeText={setAddress}
+              autoCapitalize="words"
+            />
+            <FormField
+              title="Số người tham gia"
+              placeholder="Nhập số người tham gia"
+              keyboardType="numeric"
+              value={numOfParticipants}
+              onChangeText={setNumOfParticipants}
+              autoCapitalize="none"
+            />
+
+            {isLoading ? (
+              <ActivityIndicator size="large" color={Colors.dark.grey} />
+            ) : (
+              <BrownButton label="Đăng Ký" onPress={handleSignUp} />
+            )}
+            <Text className="text-center text-sm font-roboto-black text-black">
+              {
+                "Khi tiếp tục, bạn đã đồng ý với \n Chính sách hủy/hoàn tiền và Điều khoản sử dụng dịch vụ "
+              }
+            </Text>
+          </>
         )}
-        <Text className="text-center text-sm font-roboto-black text-black">
-          {
-            "Khi tiếp tục, bạn đã đồng ý với \n Chính sách hủy/hoàn tiền và Điều khoản sử dụng dịch vụ "
-          }
-        </Text>
       </View>
     </ScrollView>
   );

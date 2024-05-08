@@ -2,6 +2,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getDoc, doc, setDoc, collection, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { User } from "firebase/auth";
+import { useAuth } from "@/hooks/useAuth";
 
 export const storeData = async (key: string, value: any) => {
   try {
@@ -112,5 +114,34 @@ export const getSelectedTourInfo = async () => {
     return JSON.parse(jsonValue);
   } catch (error) {
     console.error("Có lỗi xảy ra khi truy xuất thông tin tour:", error);
+  }
+};
+
+export const getCurrentUserInfoFromFirestore = async (user: any) => {
+  // Sử dụng hook useAuth để lấy thông tin người dùng hiện tại
+
+  if (!user) {
+    console.log("Không có người dùng nào được đăng nhập");
+    return null;
+  }
+
+  const uid = user.uid; // Lấy UID của người dùng hiện tại
+
+  const docRef = doc(db, "users", uid); // Tạo reference đến document người dùng
+
+  try {
+    const docSnap = await getDoc(docRef); // Lấy document người dùng
+
+    if (docSnap.exists()) {
+      // Lấy dữ liệu người dùng và chuyển đổi thành object
+      const userInfo = docSnap.data();
+      return userInfo;
+    } else {
+      console.log("Không tìm thấy người dùng trong Firestore");
+      return null;
+    }
+  } catch (error) {
+    console.error("Có lỗi xảy ra khi lấy thông tin người dùng:", error);
+    return null;
   }
 };
